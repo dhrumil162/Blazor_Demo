@@ -1,0 +1,103 @@
+﻿@page "/BusMaster"
+@using RajwadiBus.Web.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h1>Bus Master</h1>
+<div class="row">
+    <div class="col-md-6">
+        <a href='/BusMaster/Add' class="btn btn-primary" role="button">
+            <i class="oi oi-plus"></i> Add Bus
+        </a>
+    </div>
+    <div class="input-group col">
+        <input type="text" class="form-control" placeholder="Search bus by name" @bind="SearchString" @bind:event="oninput" @onkeyup="FilterBus" />
+        @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="oi oi-delete"></i>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<br />
+@if (busList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>Name</th>
+                <th>Route From</th>
+                <th>Route To</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Fare</th>
+                <th>Total Seat</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in busList)
+            {
+                <tr>
+                    <td>@item.BusName</td>
+                    <td>@item.RouteFrom</td>
+                    <td>@item.RouteTo</td>
+                    <td>@item.StartTime</td>
+                    <td>@item.EndTime</td>
+                    <td>@item.Fare</td>
+                    <td>@item.TotalSeat</td>
+                    <td>
+                        <a href='/BusMaster/Edit/@item.Id' class="btn btn-outline-dark" role="button">
+                            Edit
+                        </a>
+                        <a href='#' @onclick="(async () => await RemoveBus(item.Id))" class="btn btn-outline-danger" role="button">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    protected List<BusMaster> busList = new List<BusMaster>();
+    protected List<BusMaster> searchBusData = new List<BusMaster>();
+    protected string SearchString { get; set; } = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        await GetBus();
+    }
+    protected async Task GetBus()
+    {
+        busList = await Http.GetFromJsonAsync<List<BusMaster>>("api/BusMaster");
+        searchBusData = busList;
+    }
+    protected void FilterBus()
+    {
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            busList = searchBusData.Where(x => x.BusName.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+        }
+        else
+        {
+            busList = searchBusData;
+        }
+    }
+    protected async Task RemoveBus(int Id)
+    {
+        await Http.DeleteAsync("api/BusMaster/" + Id);
+        NavigationManager.NavigateTo("/BusMaster");
+    }
+    public void ResetSearch()
+    {
+        SearchString = string.Empty;
+        busList = searchBusData;
+    }
+}

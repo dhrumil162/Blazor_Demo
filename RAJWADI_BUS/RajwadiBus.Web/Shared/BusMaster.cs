@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RajwadiBus.Web.Shared
 {
@@ -14,5 +12,6 @@ namespace RajwadiBus.Web.Shared
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public decimal Fare { get; set; }
+        public int TotalSeat { get; set; }
     }
 }

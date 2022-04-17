@@ -46,6 +46,9 @@ namespace RajwadiBus.Web.Server.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TotalSeat")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("BusMasters");

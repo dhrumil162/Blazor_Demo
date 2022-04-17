@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RajwadiBus.Web.Server", "Server\RajwadiBus.Web.Server.csproj", "{51281F3F-C03C-4150-99BC-A746986021DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RajwadiBus.Web.Server", "Server\RajwadiBus.Web.Server.csproj", "{51281F3F-C03C-4150-99BC-A746986021DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RajwadiBus.Web.Client", "Client\RajwadiBus.Web.Client.csproj", "{97151EB6-AA43-4709-A247-764B1817CDBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RajwadiBus.Web.Client", "Client\RajwadiBus.Web.Client.csproj", "{97151EB6-AA43-4709-A247-764B1817CDBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RajwadiBus.Web.Shared", "Shared\RajwadiBus.Web.Shared.csproj", "{22E9DABD-4611-4545-BD52-F2E38B04A26D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RajwadiBus.Web.Shared", "Shared\RajwadiBus.Web.Shared.csproj", "{22E9DABD-4611-4545-BD52-F2E38B04A26D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

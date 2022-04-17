@@ -18,7 +18,8 @@ namespace RajwadiBus.Web.Server.Migrations
                     RouteTo = table.Column<string>(nullable: true),
                     StartTime = table.Column<string>(nullable: true),
                     EndTime = table.Column<string>(nullable: true),
-                    Fare = table.Column<decimal>(nullable: false)
+                    Fare = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalSeat = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

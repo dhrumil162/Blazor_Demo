@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Shared\RajwadiBus.Web.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\BusMaster\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,102 @@
+﻿@page "/BusMaster/Add"
+@page "/BusMaster/Edit/{Id:int}"
+@using RajwadiBus.Web.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h1>@Title Bus</h1>
+<hr />
+<EditForm Model="@bus" OnValidSubmit="SaveBus">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="BusName" class="form-label">Bus Name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.BusName" />
+        </div>
+        <ValidationMessage For="@(() => bus.BusName)" />
+    </div>
+    <div class="mb-3">
+        <label for="BusNumber" class="form-label">Bus Number</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.BusNumber" />
+        </div>
+        <ValidationMessage For="@(() => bus.BusNumber)" />
+    </div>
+    <div class="mb-3">
+        <label for="RouteFrom" class="form-label">Route From</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.RouteFrom" />
+        </div>
+        <ValidationMessage For="@(() => bus.RouteFrom)" />
+    </div>
+    <div class="mb-3">
+        <label for="RouteTo" class="form-label">Route To</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.RouteTo" />
+        </div>
+        <ValidationMessage For="@(() => bus.RouteTo)" />
+    </div>
+    <div class="mb-3">
+        <label for="StartTime" class="form-label">Start Time</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.StartTime" />
+        </div>
+        <ValidationMessage For="@(() => bus.StartTime)" />
+    </div>
+    <div class="mb-3">
+        <label for="EndTime" class="form-label">End Time</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="bus.EndTime" />
+        </div>
+        <ValidationMessage For="@(() => bus.EndTime)" />
+    </div>
+    <div class="mb-3">
+        <label for="Fare" class="form-label">Fare</label>
+        <div class="col-md-4">
+            <InputNumber class="form-control" @bind-Value="bus.Fare" @bind-Value:format="F2" />
+        </div>
+        <ValidationMessage For="@(() => bus.Fare)" />
+    </div>
+    <div class="mb-3">
+        <label for="TotalSeat" class="form-label">Total Seat</label>
+        <div class="col-md-4">
+            <InputNumber class="form-control" @bind-Value="bus.TotalSeat" />
+        </div>
+        <ValidationMessage For="@(() => bus.TotalSeat)" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    protected string Title = "Add";
+    protected BusMaster bus = new BusMaster();
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != 0)
+        {
+            Title = "Edit";
+            bus = await Http.GetFromJsonAsync<BusMaster>("api/BusMaster/" + Id);
+        }
+    }
+    protected async Task SaveBus()
+    {
+        if (bus.Id != 0)
+        {
+            await Http.PutAsJsonAsync("api/BusMaster", bus);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync("api/BusMaster", bus);
+        }
+        Cancel();
+    }
+    public void Cancel()
+    {
+        NavigationManager.NavigateTo("/BusMaster");
+    }
+}

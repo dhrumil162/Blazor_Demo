@@ -9,7 +9,7 @@ using RajwadiBus.Web.Server.Data;
 namespace RajwadiBus.Web.Server.Migrations
 {
     [DbContext(typeof(RajwadiBusDBContext))]
-    [Migration("20211211183548_Initial")]
+    [Migration("20220417104049_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,9 @@ namespace RajwadiBus.Web.Server.Migrations
 
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalSeat")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
